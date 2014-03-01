@@ -177,7 +177,7 @@ int main( int argc, char **argv )
 	bool quit=false;
 	while(!quit)
 	{
-		SDL_PollEvent(&event);
+		SDL_WaitEventTimeout(&event, interval);
 		
 		if(event.type==SDL_QUIT)
 			break;
@@ -196,6 +196,9 @@ int main( int argc, char **argv )
 		glClear(GL_COLOR_BUFFER_BIT);
 		engine.draw();
 		SDL_GL_SwapWindow(window);
+		
+		if(!engine.isAlive())
+			break;
 	}
 	
 	SDL_GL_DeleteContext(context);
